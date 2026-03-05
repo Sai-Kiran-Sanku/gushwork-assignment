@@ -201,6 +201,33 @@ body {
   border-radius: 20px;
 }
 
+/* external zoom display to the right by default */
+.zoom-result {
+  position: absolute;
+  top: 0;
+  left: 105%; /* place just to right of container */
+  width: 300px;
+  height: 300px;
+  border: 1px solid #ccc;
+  background-repeat: no-repeat;
+  background-size: 200% auto; /* initial zoom factor (2x) */
+  display: none; /* hidden until mouseover */
+  z-index: 25;
+}
+
+/* modifier for instances where zoom box should appear to the left of the image */
+
+/* the previous `.top` style is no longer used but kept for reference if needed */
+.process-image-container .img-nav-btn {
+  z-index: 10; /* ensure buttons remain visible */
+}
+.zoom-result.top img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
 .main-image {
   width: 100%;
   border-radius: 20px;
@@ -244,7 +271,15 @@ body {
   display: flex;
   gap: 15px;
   margin-top: 20px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.thumbnail-row::-webkit-scrollbar {
+  display: none;
 }
 
 .thumbnail {
@@ -253,8 +288,9 @@ body {
   object-fit: cover;
   border-radius: 10px;
   cursor: pointer;
-  opacity: 0.6;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  opacity: 0.35;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  flex: 0 0 auto;
 }
 
 .thumbnail:hover {
@@ -348,7 +384,7 @@ body {
 
 .thumbnail.active {
   opacity: 1;
-  border: 2px solid #3a4fd7;
+  transform: scale(1.04);
 }
 
 /* ============================= */
@@ -704,6 +740,128 @@ body {
     background-color: #1e286d;
 }
 
+/* Quote Modal */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.65);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    z-index: 2000;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-card {
+    width: 100%;
+    max-width: 520px;
+    background: #ffffff;
+    border-radius: 14px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.2);
+    overflow: hidden;
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 20px 24px 12px;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 22px;
+    line-height: 1.3;
+    color: #111827;
+}
+
+.close-btn {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: #f3f4f6;
+    color: #111827;
+    cursor: pointer;
+    font-size: 24px;
+    line-height: 1;
+}
+
+.modal-body {
+    padding: 12px 24px 8px;
+}
+
+.modal-body .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.modal-body label {
+    font-size: 14px;
+    color: #111827;
+    font-weight: 500;
+}
+
+.modal-body input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.modal-body input:focus {
+    outline: none;
+    border-color: #27348b;
+    box-shadow: 0 0 0 3px rgba(39, 52, 139, 0.12);
+}
+
+.modal-footer {
+    padding: 8px 24px 24px;
+}
+
+.modal-footer .download-btn {
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 15px;
+    font-weight: 600;
+    background: #27348b;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.modal-footer .download-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.modal-footer .download-btn:not(:disabled):hover {
+    background: #1e286d;
+}
+
+.primary-btn:focus-visible,
+.cta-form button:focus-visible,
+.close-btn:focus-visible,
+.modal-footer .download-btn:focus-visible,
+.slider-btn:focus-visible,
+.img-nav-btn:focus-visible,
+.process-tab:focus-visible,
+.s9-submit-btn:focus-visible {
+    outline: 3px solid #93c5fd;
+    outline-offset: 2px;
+}
+
 /* Responsive Design Adjustments */
 @media (max-width: 992px) {
     .features-grid {
@@ -1030,10 +1188,26 @@ body {
     object-fit: cover;
     opacity: 0.8;
     transition: transform 0.5s ease;
+    cursor: zoom-in;
 }
 
 .app-card:hover .app-card-img {
     transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+#s5ZoomPreview {
+    position: fixed;
+    width: 260px;
+    height: 260px;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    background-repeat: no-repeat;
+    background-size: 200% auto;
+    display: none;
+    z-index: 2500;
+    pointer-events: none;
+    box-shadow: 0 16px 28px rgba(15, 23, 42, 0.22);
+    background-color: #fff;
 }
 
 /* Dark Gradient Overlay for Text readability */
@@ -1138,6 +1312,29 @@ body {
     overflow-x: auto; /* Scrollable on smaller screens */
     padding-bottom: 8px; /* Room for scrollbar if present */
     justify-content: space-between;
+    position: relative; /* for the connecting line */
+}
+
+/* connecting line behind tabs */
+.tabs-container::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #ddd;
+    z-index: 1;
+}
+
+.process-tab {
+    padding: 10px 24px;
+    border-radius: 9999px; /* Pill shape */
+    font-size: 13px;
+    font-weight: 500;
+    position: relative;
+    z-index: 2; /* appear above line */
+    background: #fff; /* cover line behind tab */
 }
 
 /* Hide scrollbar for cleaner look */
@@ -1232,7 +1429,38 @@ body {
     position: relative;
     border-radius: 12px;
     overflow: hidden;
+    border: 1px solid #e5e7eb;
+    --trace-x: 50%;
+    --trace-y: 50%;
+    transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
 }
+
+.process-image-container::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+        220px circle at var(--trace-x) var(--trace-y),
+        rgba(255, 255, 255, 0.28),
+        rgba(99, 102, 241, 0.1) 40%,
+        rgba(0, 0, 0, 0) 70%
+    );
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.process-image-container.zoom-active {
+    border-color: #c7d2fe;
+    box-shadow: 0 18px 36px rgba(15, 23, 42, 0.2);
+    transform: translateY(-2px);
+}
+
+.process-image-container.zoom-active::after {
+    opacity: 1;
+}
+
+/* when a zoom-result is shown above/beside the image, don’t clip it */
 
 .process-img {
     width: 100%;
@@ -1240,6 +1468,23 @@ body {
     min-height: 300px;
     object-fit: cover;
     display: block;
+    transition: opacity 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+    cursor: zoom-in;
+}
+
+#processZoomPreview {
+    position: fixed;
+    width: 280px;
+    height: 280px;
+    border-radius: 12px;
+    border: 1px solid #cbd5e1;
+    background-repeat: no-repeat;
+    background-size: 220% auto;
+    background-color: #ffffff;
+    box-shadow: 0 16px 30px rgba(15, 23, 42, 0.24);
+    pointer-events: none;
+    display: none;
+    z-index: 2500;
 }
 
 /* Image Navigation Arrows */
@@ -1854,6 +2099,49 @@ body {
     background-color: #1a202c;
 }
 
+/* Section 1 style background for sections 3-9 (exclude section-2 and footer) */
+.section-3,
+.section-4,
+.section-5,
+.section-6,
+.section-7,
+.complete-piping-solutions,
+.section-9 {
+    position: relative;
+    background: #ffffff;
+    background-image: none;
+    overflow: hidden;
+}
+
+.section-3::before,
+.section-4::before,
+.section-5::before,
+.section-6::before,
+.section-7::before,
+.complete-piping-solutions::before,
+.section-9::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("assets/images/bg.png");
+    background-repeat: repeat;
+    opacity: 0.5;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.section-3 > *,
+.section-4 > *,
+.section-5 > *,
+.section-6 > *,
+.section-7 > *,
+.complete-piping-solutions > *,
+.section-9 > * {
+    position: relative;
+    z-index: 1;
+}
+
 /* Responsive Design */
 @media (max-width: 992px) {
     .s9-contact-wrapper {
@@ -2073,4 +2361,77 @@ Section10 */
 .breadcrumb.container {
   margin-top: 24px;
   margin-bottom: 24px;
+}
+
+/* Sticky Header refinements */
+.sticky-header {
+  position: fixed;
+  top: -100px; /* Hidden by default */
+  left: 0;
+  width: 100%;
+  background: #ffffff; /* Change to white if design requires */
+  color: #111827;
+  padding: 12px 0;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1000;
+  transform: translateY(0);
+}
+
+.sticky-header.active {
+  transform: translateY(100px); /* Slides down into view */
+}
+
+/* Enhanced Zoom Transitions [cite: 18] */
+.zoom-container img {
+  transition: transform 0.1s ease-out; /* Fast follow for mouse movement */
+  pointer-events: none;
+}
+
+/* Mobile Responsiveness [cite: 7] */
+@media (max-width: 768px) {
+  .heading {
+    font-size: 32px;
+  }
+  .product-section {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .price-card {
+    width: 100%;
+  }
+}
+
+
+.tech-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+
+}
+
+/* Ensure padding accounts for the separator */
+
+.tech-table th, 
+.tech-table td {
+    padding: 20px 24px;
+}
+
+/* The separator logic */
+.tech-table th:first-child, 
+.tech-table td:first-child {
+    border-right: 1px solid #2d3748;
+    width: 40%; /* Keeps the parameter column consistent */
+
+}
+/* Table Body row border */
+.tech-table tbody tr {
+    border-bottom: 1px solid #2d3748;
+}
+
+/* Vertical separator line between columns */
+.tech-table th:first-child, 
+.tech-table td:first-child {
+    border-right: 1px solid #2d3748; /* Matches the existing table border color */
+
 }

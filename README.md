@@ -1,95 +1,37 @@
-# 🛠 Gushwork Frontend Assignment
+# Gushwork Frontend Assignment
 
-A responsive product detail page built using **HTML, CSS, and JavaScript**.
+This is a responsive single-page product website built using only HTML, CSS, and vanilla JavaScript.
 
-This project recreates the provided Figma design with pixel-accurate styling, structured layout, and interactive components.
+## What is implemented
 
----
+- Pixel-focused layout based on the provided Figma reference
+- Responsive behavior for desktop, tablet, and mobile breakpoints
+- Sticky header behavior after first fold scroll
+- Image carousel with thumbnail navigation
+- Hover zoom preview on the main product gallery
+- Modal popup flow for quote/catalogue request
+- Section 5 and Section 6 image zoom interactions
+- Noise-style background treatment across required sections
 
-## 🚀 Features Implemented
-
-### ✅ Layout & Design
-- Two-column responsive product layout
-- Sticky header on scroll
-- Noise texture background (Figma-matched)
-- Brand logo row spanning full width
-- Pixel-accurate spacing and typography
-
-### ✅ Product Gallery
-- Image carousel with:
-  - Previous / Next navigation
-  - Thumbnail selection
-- Zoom-on-hover effect
-- Active thumbnail highlight
-
-### ✅ Product Details
-- Certification badges
-- Feature list with custom SVG check icons
-- Styled price card
-- Shipping & Returns info badges
-- Certification tag badge
-- Action buttons (Primary & Secondary)
-
-### ✅ Styling
-- Google Fonts: Inter & Urbanist
-- Reusable badge components
-- Responsive grid layout
-- Clean spacing system
-- Subtle noise texture overlay
-
----
-
-## 💡 Technologies Used
+## Tech stack
 
 - HTML5
-- CSS3 (Flexbox & Grid)
+- CSS3 (Flexbox and Grid)
 - Vanilla JavaScript
-- Google Fonts
-- SVG Icons
 
----
+## Project files
 
-## 📱 Responsiveness
+- `index.html`
+- `styles.css`
+- `script.js`
+- `assets/`
 
-- Desktop layout: Two-column grid
-- Tablet & Mobile: Stacked layout
-- Flexible image scaling
-- Responsive price card
+## How to run
 
----
+1. Open `index.html` in any modern browser.
+2. No build tools or dependencies are required.
 
-## 🎯 Design Implementation Highlights
+## Notes
 
-- Accurate spacing using consistent vertical rhythm
-- Fixed-to-sticky header transition
-- Hover transitions for thumbnails & buttons
-- Grid-based layout for scalability
-- Clean reusable component styling
-
----
-
-## ▶️ How to Run
-
-1. Clone or download the repository
-2. Open `index.html` in your browser
-
-No build tools required.
-
----
-
-## ✨ Improvements (Future Scope)
-
-- Add smooth carousel transitions
-- Add animation on scroll
-- Improve mobile button stacking
-- Lazy load product images
-- Add accessibility improvements
-
----
-
-## 👤 Author
-
-Built as part of the Gushwork Frontend Assignment.
-
----
-
+- The implementation avoids external frameworks/libraries as requested.
+- Interactive behaviors are handled inside `script.js` with `DOMContentLoaded` initialization.

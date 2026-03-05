@@ -13,8 +13,8 @@
 </style>
 </head>
 <body>
-
-<section class="page-section">
+<!-- Stating of Section1 -->
+<section class="page-section hero">
   <!-- Sticky Header -->
 <header class="sticky-header" id="stickyHeader">
         <div class="container nav-wrapper">
@@ -63,6 +63,8 @@
                     <div class="zoom-container" id="zoomContainer">
                         <img src="assets/images/product1.jpg" class="main-image" id="mainImage" alt="HDPE Pipe Main View" />
                     </div>
+                    <!-- separate zoom window shown to right -->
+                    <div class="zoom-result" id="zoomResult"></div>
                     <button class="carousel-btn next" id="nextBtn" aria-label="Next">&#8594;</button>
                 </div>
                 <div class="thumbnail-row">
@@ -71,6 +73,7 @@
                     <img src="assets/images/product3.jpg" class="thumbnail" data-index="2" alt="Thumb 3">
                     <img src="assets/images/product4.jpg" class="thumbnail" data-index="3" alt="Thumb 4">
                     <img src="assets/images/product5.jpg" class="thumbnail" data-index="4" alt="Thumb 5">
+                    <img src="assets/images/product6.jpg" class="thumbnail" data-index="5" alt="Thumb 5">
                 </div>
             </div>
 
@@ -282,7 +285,7 @@
         </div>
 
         <div class="button-wrapper">
-            <a href="#" class="primary-btn">Request a Quote</a>
+            <a href="#" class="primary-btn" id="openQuoteModal" data-quote-modal-trigger="true" aria-haspopup="dialog" aria-controls="quoteModal">Request a Quote</a>
         </div>
     </div>
 </section>
@@ -372,7 +375,7 @@
             </div>
             <div class="cta-form">
                 <input type="email" placeholder="Email Address" required>
-                <button type="button">Request Catalogue</button>
+                <button type="button" id="openQuoteModalCatalogue" data-quote-modal-trigger="true" aria-haspopup="dialog" aria-controls="quoteModal">Request Catalogue</button>
             </div>
         </div>
 
@@ -657,7 +660,7 @@
     </div>
 </section>
 <!-- Stating of Section9 -->
-<section>
+<section class="section-9">
 <div class="s9-container">
         <div class="s9-header-top">
             <h2>Resources & Downloads</h2>
@@ -730,7 +733,7 @@
                         </select>
                         <input type="tel" class="s9-input s9-phone-number" placeholder="7003026616" required>
                     </div>
-                    <button type="submit" class="s9-submit-btn">Request Custom Quote</button>
+                    <button type="submit" class="s9-submit-btn" >Request Custom Quote</button>
                 </form>
             </div>
         </div>
@@ -825,6 +828,30 @@
     </div>
 </footer>
 </section>
+<div class="modal-overlay" id="quoteModal" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="quoteModalTitle" tabindex="-1">
+    <div class="modal-header">
+      <h2 id="quoteModalTitle">Let us email the entire catalogue to you</h2>
+      <button class="close-btn" id="closeQuoteModal" type="button" aria-label="Close modal">&times;</button>
+    </div>
+
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="quoteEmail">Your Email *</label>
+        <input id="quoteEmail" type="email" placeholder="example@gmail.com" aria-label="Your Email" required>
+      </div>
+
+      <div class="form-group">
+        <label for="quoteContact">Your Contact (Optional)</label>
+        <input id="quoteContact" type="text" placeholder="+91-0000000000" aria-label="Your Contact">
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="download-btn" id="downloadBrochureBtn" disabled>Download Brochure</button>
+    </div>
+  </div>
+</div>
   <script src="script.js"></script>
 </body>
 </html>
